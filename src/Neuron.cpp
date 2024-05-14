@@ -1,6 +1,5 @@
 #include <iostream>
 #include "../include/Neuron.hpp"
-using namespace std;
 
 // Constructor
 Neuron::Neuron(float val) {

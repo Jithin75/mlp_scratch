@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 #include "Neuron.hpp"
-using namespace std;
 
 class Layer
 {
@@ -13,7 +12,7 @@ class Layer
         Layer(int size);
     private:
         int size;
-        vector<Neuron *> neurons; 
+        std::vector<Neuron *> neurons; 
 };
 
 #endif //LAYER_HPP
