@@ -2,7 +2,7 @@
 #include "../include/Neuron.hpp"
 
 // Constructor
-Neuron::Neuron(float val) {
+Neuron::Neuron(double val) {
     this->val = val;
     activate();
     derive();
@@ -19,7 +19,7 @@ void Neuron::derive() {
 }
 
 // Set Function
-void Neuron::setVal(float val) {
+void Neuron::setVal(double val) {
     this->val = val;
     activate();
     derive();

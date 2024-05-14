@@ -2,23 +2,24 @@
 #include <vector>
 #include <random>
 #include <iomanip>
+#include <cassert>
 #include "../include/Matrix.hpp"
 
 // Random Number generator from 0 to 1 for initial weights
-float Matrix::getRandNum() {
+double Matrix::getRandNum() {
     // Create a random number generator engine
     std::random_device rd;
     std::mt19937 gen(rd());
     
     // Create a uniform distribution between 0 and 1
-    std::uniform_real_distribution<float> dis(0.0, 1.0);
+    std::uniform_real_distribution<double> dis(0.0, 1.0);
     
     // Generate a random number
     return dis(gen);
 }
 
 // Set Functions
-void Matrix::setVal(int r, int c, float val) {
+void Matrix::setVal(int r, int c, double val) {
     this->values.at(r).at(c) = val;
 }
 
@@ -27,7 +28,7 @@ Matrix::Matrix(int totalRows, int totalCols, bool isRandom) {
     this->totalRows = totalRows;
     this->totalCols = totalCols;
     for(int i = 0; i < totalRows; i++) {
-        std::vector<float> row_values;
+        std::vector<double> row_values;
         for(int j = 0; j < totalCols; j++) {
             if(isRandom) {
                row_values.push_back(getRandNum()); 
@@ -48,6 +49,30 @@ Matrix *Matrix::transpose() {
         }
     }
     return m;
+}
+
+Matrix *Matrix::operator*(const Matrix& mat) const {
+    // Check if multiplication is possible
+    if (this->totalCols != mat.totalRows) {
+        std::cerr << "Error: Incompatible dimensions for matrix multiplication\n";
+        assert(false);
+    }
+
+    // Create a new matrix to store the result
+    Matrix *result = new Matrix(this->totalRows, mat.totalCols, false);
+
+    // Perform matrix multiplication
+    for (int i = 0; i < this->totalRows; ++i) {
+        for (int j = 0; j < mat.totalCols; ++j) {
+            double sum = 0.0;
+            for (int k = 0; k < this->totalCols; ++k) {
+                sum += this->values[i][k] * mat.values[k][j];
+            }
+            result->setVal(i, j, sum);
+        }
+    }
+
+    return result;
 }
 
 // Visualise Matrix

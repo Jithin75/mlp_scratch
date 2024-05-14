@@ -20,10 +20,10 @@ class Layer
         Matrix *matrixify(int type);
         
         // Copy Functions
-        void layerCopy(std::vector<float> values);
+        void layerCopy(std::vector<double> values);
 
         // Set Functions
-        void setNeuronVal(int i, float val);
+        void setVal(int i, double val);
     private:
         int size;
         std::vector<Neuron *> neurons; 

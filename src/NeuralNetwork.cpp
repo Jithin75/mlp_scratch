@@ -19,7 +19,7 @@ NeuralNetwork::NeuralNetwork(std::vector<int> topology) {
 }
 
 // Set Initial Input to NN
-void NeuralNetwork::setInitialInput(std::vector<float> input) {
+void NeuralNetwork::setInitialInput(std::vector<double> input) {
     this->input = input;
 
     this->layers.at(0)->layerCopy(input);
@@ -41,5 +41,25 @@ void NeuralNetwork::prettyPrintNetwork() {
         std::cout << "WEIGHT MATRIX " << j + 1 << "(between layers " << j + 1 << " and " << j + 2 << "):" << std::endl;
         this->weightMatrices.at(j)->prettyPrintMatrix();
         std::cout<< std::endl;
+    }
+}
+
+// Feed Forward Implementation
+void NeuralNetwork::feedForward() {
+    for(int i = 0; i < (this->layers.size() - 1); i++) {
+        Matrix *a = NULL;
+        if (i == 0) {
+            a = this->getNeuronMatrix(0);
+        } else{
+            a = this->getActivatedNeuronMatrix(i);
+        }
+        Matrix *b = this->getWeightMatrix(i);
+        Matrix *c = (*a) * (*b);
+        for(int j = 0; j < c->getCols(); j++) {
+            this->setNeuronValue(i + 1, j, c->getVal(0, j));
+        }
+        delete a;
+        delete b;
+        delete c;
     }
 }

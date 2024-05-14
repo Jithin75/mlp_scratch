@@ -7,7 +7,7 @@ class Neuron
 {
     public:
         // Constructor
-        Neuron(float val);
+        Neuron(double val);
 
         // Fast sigmoid activation function : f(x) = x/(1 + |x|)
         void activate();
@@ -16,19 +16,19 @@ class Neuron
         void derive();
 
         // Get Functions
-        float getVal() {return this->val;}
-        float getActivatedVal() {return this->activatedVal;}
-        float getDerivedVal() {return this->derivedVal;}
+        double getVal() {return this->val;}
+        double getActivatedVal() {return this->activatedVal;}
+        double getDerivedVal() {return this->derivedVal;}
 
         // Set Functions
-        void setVal(float val);
+        void setVal(double val);
     private:
         // Given Value
-        float val;
+        double val;
         // Normalised value (or after activation)
-        float activatedVal;
+        double activatedVal;
         // Value after derivative
-        float derivedVal;
+        double derivedVal;
 };
 
 #endif //NEURON_HPP
