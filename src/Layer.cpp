@@ -4,7 +4,7 @@
 #include "../include/Layer.hpp"
 
 // Set Functions
-void Layer::setNeuronVal(int i, float val) {
+void Layer::setVal(int i, double val) {
     this->neurons.at(i)->setVal(val);
 }
 
@@ -18,10 +18,10 @@ Layer::Layer(int size) {
 }
 
 // Copy Functions
-void Layer::layerCopy(std::vector<float> values) {
+void Layer::layerCopy(std::vector<double> values) {
     assert(values.size() == this->neurons.size());
     for(int i = 0; i < values.size(); i++) {
-        this->setNeuronVal(i, values.at(i));
+        this->setVal(i, values.at(i));
     }
 }
 
@@ -38,7 +38,8 @@ Matrix *Layer::matrixify(int type) {
         {
             m->setVal(0,i,this->neurons.at(i)->getDerivedVal());
         } else {
-            throw "Invalid Type!";
+            std::cerr << "Invalid Type (Given Type: "<< type <<") to matrixify a layer!";
+            assert(false);
         }
     }
     return m;
