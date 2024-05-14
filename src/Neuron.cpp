@@ -18,3 +18,10 @@ void Neuron::activate() {
 void Neuron::derive() {
     this->derivedVal = this->activatedVal * (1 - this->activatedVal);
 }
+
+// Set Function
+void Neuron::setVal(float val) {
+    this->val = val;
+    activate();
+    derive();
+}

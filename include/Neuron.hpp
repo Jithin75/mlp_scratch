@@ -20,6 +20,9 @@ class Neuron
         float getVal() {return this->val;}
         float getActivatedVal() {return this->activatedVal;}
         float getDerivedVal() {return this->derivedVal;}
+
+        // Set Functions
+        void setVal(float val);
     private:
         // Given Value
         float val;
