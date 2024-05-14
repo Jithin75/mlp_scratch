@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include "../include/Layer.hpp"
-using namespace std;
 
 //Constructor
 Layer::Layer(int size) {

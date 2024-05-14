@@ -8,4 +8,6 @@ add_executable(
     mlp_scratch
     src/main.cpp
     src/Neuron.cpp
+    src/Layer.cpp
+    src/Matrix.cpp
 )
