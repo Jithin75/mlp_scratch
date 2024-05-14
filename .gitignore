@@ -3,3 +3,9 @@ CMakeFiles/
 Makefile
 cmake_install.cmake
 CMakeCache.txt
+
+# Setup Scripts
+setup.sh
+
+# Executables
+mlp_scratch
