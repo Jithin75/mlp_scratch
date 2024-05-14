@@ -7,5 +7,8 @@ CMakeCache.txt
 # Setup Scripts
 setup.sh
 
+# Ignore Hidden vscode files
+.vscode/
+
 # Executables
 mlp_scratch
