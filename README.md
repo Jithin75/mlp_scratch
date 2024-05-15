@@ -13,6 +13,7 @@ $ make
 - The topology needs to be set in the `main.cpp` file as show in the sample topology
 - The training with forward and backward propogation is set to work for a singular input, and works well for such cases, however with multiple input the cost function is not robust enough to guarantee accuracy
 - The `main.cpp` file has a sample input and training with a sample topology.
+- Due to the simple nature of the cost function and the back propagation algorithm, the target value has to a vector with value between 0 and 1, since it is normalised every iteration.
 
 ## Improvements in work (Coming very soon!!):
 - Refactoring code for readability and better memory allocation to avoid leaks within back propagation
