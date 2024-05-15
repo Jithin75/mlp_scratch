@@ -24,6 +24,10 @@ class Layer
 
         // Set Functions
         void setVal(int i, double val);
+
+        // Get Functions
+        int getSize() {return this->size;}
+        std::vector<Neuron *> getNeurons() {return this->neurons;}
     private:
         int size;
         std::vector<Neuron *> neurons; 
