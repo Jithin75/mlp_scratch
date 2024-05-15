@@ -7,15 +7,16 @@ using namespace std;
 
 int main(int argc, char **argv) {
 
-    vector<int> topology = {3,2,3};
+    vector<int> topology = {3,2,7};
     vector<double> input = {1,0,1};
+    vector<double> target = {1,0,1,1,1,0,1};
 
     NeuralNetwork *nn = new NeuralNetwork(topology);
     nn->setInitialInput(input);
-    nn->setTargetOutput(input);
+    nn->setTargetOutput(target);
 
     // Training NN:
-    for(int i = 0; i < 2000; i++) {
+    for(int i = 0; i < 20000; i++) {
         std::cout << "Epoch " << i + 1 << ":" << std::endl;
         nn->feedForward();
         nn->setErrors();
