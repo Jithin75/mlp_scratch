@@ -27,6 +27,15 @@ class NeuralNetwork
         // Visualise Neural Network Topology
         void prettyPrintNetwork();
 
+        // Visualise Output
+        void prettyPrintOutput();
+
+        // Visualise Target
+        void prettyPrintTarget();
+
+        // Visualise Errors
+        void prettyPrintHistoricalErrors();
+
         // Expected that target is set, and calculates the errors
         void setErrors();
 
