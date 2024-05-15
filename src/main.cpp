@@ -15,13 +15,18 @@ int main(int argc, char **argv) {
     nn->setTargetOutput(input);
 
     // Training NN:
-    for(int i = 0; i < 20; i++) {
+    for(int i = 0; i < 2000; i++) {
         std::cout << "Epoch " << i + 1 << ":" << std::endl;
         nn->feedForward();
         nn->setErrors();
-        std::cout<< "Total Errors: " << nn->getTotalError() << std::endl;
+        std::cout << "OUTPUT: " << std::endl;
+        nn->prettyPrintOutput();
+        std::cout << "TARGET: " << std::endl;
+        nn->prettyPrintTarget();
         nn->backPropogation();
     }
-    // nn->prettyPrintNetwork();
+
+    // Visualise the Errors
+    nn->prettyPrintHistoricalErrors();
     return 0;
 }

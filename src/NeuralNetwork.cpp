@@ -52,6 +52,47 @@ void NeuralNetwork::prettyPrintNetwork() {
     }
 }
 
+// Visualise Output
+void NeuralNetwork::prettyPrintOutput() {
+    this->layers.at(this->layers.size() - 1)->matrixify(1)->prettyPrintMatrix();
+}
+
+// Visualise Target
+void NeuralNetwork::prettyPrintTarget() {
+    Layer *temp = new Layer(this->target.size());
+    temp->layerCopy(this->target);
+    temp->matrixify(0)->prettyPrintMatrix();
+    delete temp;
+}
+
+// Helper Function used for Subsampling:
+std::vector<double> sampleVector(const std::vector<double>& original) {
+    std::vector<double> sampled;
+
+    if (original.size() <= 50) {
+        sampled = original; // Return all values if there are 50 or fewer
+    } else {
+        // Calculate the sampling interval
+        double interval = static_cast<double>(original.size()) / 50.0;
+
+        // Sample evenly spaced values
+        for (int i = 0; i < 50; ++i) {
+            int index = static_cast<int>(i * interval);
+            sampled.push_back(original[index]);
+        }
+    }
+    return sampled;
+}
+
+// Visualise Errors
+void NeuralNetwork::prettyPrintHistoricalErrors() {
+    std::cout << "Historical Progression of Errors:" << std::endl;
+    std::vector<double> sampled = sampleVector(this->historicalErrors);
+    for(auto val : sampled) {
+        std::cout << val << std::endl; 
+    }
+}
+
 // Feed Forward Implementation
 void NeuralNetwork::feedForward() {
     for(int i = 0; i < (this->layers.size() - 1); i++) {
@@ -87,7 +128,7 @@ void NeuralNetwork::setErrors() {
     this->error = 0.00;
     std::vector<Neuron *> outputNeurons = this->layers.at(this->layers.size() - 1)->getNeurons();
     for(int i = 0; i < this->target.size(); i++) {
-        double temp = pow((outputNeurons.at(i)->getActivatedVal() - target.at(i)), 2);
+        double temp = (outputNeurons.at(i)->getActivatedVal() - target.at(i));
         this->errors.at(i) = temp;
         this->error += temp;
     }
