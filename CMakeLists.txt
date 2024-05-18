@@ -5,8 +5,8 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
 add_executable(
-    mlp_scratch
-    src/main.cpp
+    train
+    src/train.cpp
     src/Neuron.cpp
     src/Layer.cpp
     src/Matrix.cpp
@@ -15,4 +15,5 @@ add_executable(
     src/neural_network/feedForward.cpp
     src/neural_network/backPropagation.cpp
     src/neural_network/train.cpp
+    src/utils/Misc.cpp
 )

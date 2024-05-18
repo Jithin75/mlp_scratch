@@ -11,4 +11,4 @@ setup.sh
 .vscode/
 
 # Executables
-mlp_scratch
+train
