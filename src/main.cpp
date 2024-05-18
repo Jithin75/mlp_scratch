@@ -1,33 +1,53 @@
-#include <iostream>
-#include "../include/Neuron.hpp"
-#include "../include/Matrix.hpp"
 #include "../include/NeuralNetwork.hpp"
+#include <iostream>
+#include <vector>
 
-using namespace std;
+int main() {
+    // Define the topology of the neural network
+    std::vector<int> topology = {3, 2, 3};
 
-int main(int argc, char **argv) {
+    // Create the neural network 
+    NeuralNetwork nn(topology, 3, 2, 1, 1.0, 0.05, 1.0);
 
-    vector<int> topology = {3,2,7};
-    vector<double> input = {1,0,1};
-    vector<double> target = {1,0,1,1,1,0,1};
+    // Define the input to the neural network
+    std::vector<double> input = {0.2, 0.5, 0.1};
 
-    NeuralNetwork *nn = new NeuralNetwork(topology);
-    nn->setInitialInput(input);
-    nn->setTargetOutput(target);
+    // Set the initial input to the neural network
+    nn.setInitialInput(input);
 
-    // Training NN:
-    for(int i = 0; i < 20000; i++) {
-        std::cout << "Epoch " << i + 1 << ":" << std::endl;
-        nn->feedForward();
-        nn->setErrors();
-        std::cout << "OUTPUT: " << std::endl;
-        nn->prettyPrintOutput();
-        std::cout << "TARGET: " << std::endl;
-        nn->prettyPrintTarget();
-        nn->backPropogation();
+    // Define the target output for training
+    std::vector<double> target = {0.1, 0.6, 0.1};
+
+    // Set the target output of the neural network
+    nn.setTargetOutput(target);
+
+    // Number of epochs to train the neural network
+    int epochs = 1000;
+
+    // Training loop
+    for (int epoch = 0; epoch < epochs; ++epoch) {
+        // Perform feed forward
+        nn.feedForward();
+
+        // Set the errors based on the target
+        nn.setErrors();
+
+        // Perform backpropagation to adjust weights
+        nn.backPropagation();
+
+        // Print the total error for this epoch
+        // std::cout << "Epoch " << epoch + 1 << " error: " << nn.getTotalError() << std::endl;
     }
 
-    // Visualise the Errors
-    nn->prettyPrintHistoricalErrors();
+    // Perform feed forward one last time to get the final output
+    nn.feedForward();
+
+    // Print the final network's output
+    std::cout << "Final network output:" << std::endl;
+    nn.prettyPrintOutput();
+
+    // Print the historical errors
+    nn.prettyPrintHistoricalErrors();
+
     return 0;
 }

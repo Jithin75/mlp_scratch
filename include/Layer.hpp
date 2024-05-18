@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cassert>
 #include "Neuron.hpp"
 #include "Matrix.hpp"
 
@@ -11,6 +12,7 @@ class Layer
     public:
         // Constructor
         Layer(int size);
+        Layer(int size, int activationType);
 
         // Matrix representation of the Layer values, activation values, and derived values
         // Types:
@@ -24,10 +26,12 @@ class Layer
 
         // Set Functions
         void setVal(int i, double val);
+        void setNeurons(std::vector<Neuron *> n);
 
         // Get Functions
         int getSize() {return this->size;}
         std::vector<Neuron *> getNeurons() {return this->neurons;}
+        std::vector<double> getActivatedVals();
     private:
         int size;
         std::vector<Neuron *> neurons; 

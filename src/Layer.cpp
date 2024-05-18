@@ -1,11 +1,20 @@
-#include <iostream>
-#include <vector>
-#include <cassert>
 #include "../include/Layer.hpp"
 
 // Set Functions
 void Layer::setVal(int i, double val) {
     this->neurons.at(i)->setVal(val);
+}
+void Layer::setNeurons(std::vector<Neuron *> n) {
+    this->neurons = n;
+}
+
+// Get Functions
+std::vector<double> Layer::getActivatedVals() {
+    std::vector<double> r;
+    for(int i = 0; i < this->neurons.size(); i++) {
+        r.push_back(this->neurons.at(i)->getActivatedVal());
+    }
+    return r;
 }
 
 //Constructor
@@ -13,6 +22,13 @@ Layer::Layer(int size) {
     this->size = size;
     for(int i = 0; i < size; i++) {
         Neuron *n = new Neuron(0.00);
+        this->neurons.push_back(n);
+    }
+}
+Layer::Layer(int size, int activationType) {
+    this->size = size;
+    for(int i = 0; i < size; i++) {
+        Neuron *n = new Neuron(0.00, activationType);
         this->neurons.push_back(n);
     }
 }

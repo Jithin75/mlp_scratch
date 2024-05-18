@@ -3,18 +3,20 @@
 
 #include <iostream>
 #include <vector>
-
+#include <random>
+#include <iomanip>
+#include <cassert>
 class Matrix
 {
     public:
         // Constructor
         Matrix(int totalRows, int totalCols, bool isRandom);
 
-        // Random Number generator from 0 to 1 for initial weights
-        double getRandNum();
-
         // Transpose the matrix for forward pass calculation
         Matrix *transpose();
+
+        // Return a copy of a Matrix
+        Matrix *copy();
 
         // Matrix Multiplication implementation
         Matrix *operator*(const Matrix& mat) const;
@@ -33,6 +35,9 @@ class Matrix
         int totalRows;
         int totalCols;
         std::vector<std::vector<double>> values;
+
+        // Random Number generator from 0 to 1 for initial weights
+        double getRandNum();
 };
 
 #endif //MATRIX_HPP
