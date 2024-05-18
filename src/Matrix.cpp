@@ -1,18 +1,13 @@
-#include <iostream>
-#include <vector>
-#include <random>
-#include <iomanip>
-#include <cassert>
 #include "../include/Matrix.hpp"
 
-// Random Number generator from 0 to 1 for initial weights
+// Random Number generator from -0.0001 to 0.0001 for initial weights
 double Matrix::getRandNum() {
     // Create a random number generator engine
     std::random_device rd;
     std::mt19937 gen(rd());
     
-    // Create a uniform distribution between 0 and 1
-    std::uniform_real_distribution<double> dis(0.0, 1.0);
+    // Create a uniform distribution between -0.0001 and 0.0001
+    std::uniform_real_distribution<double> dis(-0.0001, 0.0001);
     
     // Generate a random number
     return dis(gen);
@@ -30,11 +25,8 @@ Matrix::Matrix(int totalRows, int totalCols, bool isRandom) {
     for(int i = 0; i < totalRows; i++) {
         std::vector<double> row_values;
         for(int j = 0; j < totalCols; j++) {
-            if(isRandom) {
-               row_values.push_back(getRandNum()); 
-            } else {
-                row_values.push_back(0);
-            }
+            double r = isRandom ? this->getRandNum() : 0;
+            row_values.push_back(r);
         }
         this->values.push_back(row_values);
     }
@@ -46,6 +38,17 @@ Matrix *Matrix::transpose() {
     for(int i = 0; i < this->totalCols; i++) {
         for(int j = 0; j < this->totalRows; j++) {
             m->setVal(i,j,this->getVal(j,i));
+        }
+    }
+    return m;
+}
+
+// Return a copy of a Matrix
+Matrix *Matrix::copy() {
+    Matrix *m = new Matrix(this->totalCols, this->totalRows, false);
+    for(int i = 0; i < this->totalCols; i++) {
+        for(int j = 0; j < this->totalRows; j++) {
+            m->setVal(i,j,this->getVal(i,j));
         }
     }
     return m;

@@ -1,18 +1,24 @@
 #ifndef NEURON_HPP
 #define NEURON_HPP
 
+#define TANH 1
+#define SIGM 2
+#define RELU 3
+
 #include <iostream>
+#include <math.h>
 
 class Neuron
 {
     public:
         // Constructor
         Neuron(double val);
+        Neuron(double val, int activationType);
 
-        // Fast sigmoid activation function : f(x) = x/(1 + |x|)
+        // Activates based on Activation Type
         void activate();
 
-        // Reason: The above function has a simple and easy to calculate derivative - f'(x) = f(x)(1- f(x))
+        // Derive based on Activation Type
         void derive();
 
         // Get Functions
@@ -29,6 +35,8 @@ class Neuron
         double activatedVal;
         // Value after derivative
         double derivedVal;
+        // Activation Function
+        int activationType = 3;
 };
 
 #endif //NEURON_HPP
