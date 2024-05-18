@@ -28,6 +28,7 @@ class Matrix
         double getVal(int r, int c) {return this->values.at(r).at(c);}
         int getRows() {return this->totalRows;}
         int getCols() {return this->totalCols;}
+        std::vector<std::vector<double>> getValues(){return this->values;};
 
         // Set Functions
         void setVal(int r, int c, double val);

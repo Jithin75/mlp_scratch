@@ -1,5 +1,20 @@
 #include "../../include/NeuralNetwork.hpp"
 
+void NeuralNetwork::saveWeights(std::string file) {
+    json j = {}; 
+
+    std::vector<std::vector<std::vector<double>>> weightSet;
+
+    for(int i = 0; i < this->weightMatrices.size(); i++) {
+        weightSet.push_back(this->weightMatrices.at(i)->getValues());
+    }
+
+    j["weights"] = weightSet;
+
+    std::ofstream o(file);
+    o << std::setw(4) << j << std::endl;
+}
+
 // Set Initial Input to NN
 void NeuralNetwork::setInitialInput(std::vector<double> input) {
     this->input = input;

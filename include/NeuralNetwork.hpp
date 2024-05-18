@@ -14,6 +14,9 @@
 #include <memory>
 #include "Matrix.hpp"
 #include "Layer.hpp"
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 class NeuralNetwork
 {
@@ -36,6 +39,9 @@ class NeuralNetwork
 
         // Train Implementation
         void train(std::vector<double> input, std::vector<double> target);
+
+        // Save Weights
+        void saveWeights(std::string file);
 
         // Visualise Neural Network Topology
         void prettyPrintNetwork();
