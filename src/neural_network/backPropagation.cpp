@@ -48,7 +48,7 @@ void NeuralNetwork::backPropagation() {
         hiddenDerived = std::unique_ptr<Matrix>(this->layers.at(i)->matrixify(2));
 
         gradients = std::unique_ptr<Matrix>((*prevGradients) * (*transposePrevWeights));
-        for(int j = 0; j < hiddenDerived->getRows(); j++) {
+        for(int j = 0; j < hiddenDerived->getCols(); j++) {
             gradients->setVal(0, j, gradients->getVal(0, j) * hiddenDerived->getVal(0, j));
         }
 
