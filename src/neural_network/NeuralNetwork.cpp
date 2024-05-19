@@ -1,18 +1,60 @@
 #include "../../include/NeuralNetwork.hpp"
 
-void NeuralNetwork::saveWeights(std::string file) {
-    json j = {}; 
-
+// Save Weights
+void NeuralNetwork::saveWeights(const std::string file) {
+    json j;
     std::vector<std::vector<std::vector<double>>> weightSet;
 
-    for(int i = 0; i < this->weightMatrices.size(); i++) {
-        weightSet.push_back(this->weightMatrices.at(i)->getValues());
+    // Collect weights from each weight matrix
+    for (const auto& matrix : this->weightMatrices) {
+        weightSet.push_back(matrix->getValues());
     }
 
     j["weights"] = weightSet;
 
-    std::ofstream o(file);
-    o << std::setw(4) << j << std::endl;
+    // Write the JSON object to the specified file with pretty formatting
+    std::ofstream outFile(file);
+    if (!outFile.is_open()) {
+        std::cerr << "Error: Could not open file for saving weights: " << file << std::endl;
+        return;
+    }
+
+    outFile << std::setw(4) << j << std::endl;
+    outFile.close();
+}
+
+// Load Weights
+void NeuralNetwork::loadWeights(const std::string file) {
+    std::ifstream inFile(file);
+    if (!inFile.is_open()) {
+        std::cerr << "Error: Could not open file for loading weights: " << file << std::endl;
+        throw std::runtime_error("Failed to open weights file");
+    }
+
+    json jWeights;
+    try {
+        inFile >> jWeights;
+    } catch (const json::parse_error& e) {
+        std::cerr << "Error: Failed to parse weights file. " << e.what() << std::endl;
+        throw std::runtime_error("Failed to parse weights file");
+    }
+    inFile.close();
+
+    std::vector<std::vector<std::vector<double>>> tmp = jWeights.at("weights").get<std::vector<std::vector<std::vector<double>>>>();
+
+    // Validate the structure of the loaded weights
+    if (tmp.size() != this->weightMatrices.size()) {
+        std::cerr << "Error: Number of weight layers does not match the network topology." << std::endl;
+        throw std::runtime_error("Weights structure mismatch");
+    }
+
+    for (size_t i = 0; i < this->weightMatrices.size(); ++i) {
+        for (size_t j = 0; j < tmp[i].size(); ++j) {
+            for (size_t k = 0; k < tmp[i][j].size(); ++k) {
+                this->weightMatrices[i]->setVal(j, k, tmp[i][j][k]);
+            }
+        }
+    }
 }
 
 // Set Initial Input to NN

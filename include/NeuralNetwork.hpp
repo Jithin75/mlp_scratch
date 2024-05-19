@@ -43,6 +43,9 @@ class NeuralNetwork
         // Save Weights
         void saveWeights(std::string file);
 
+        // Load Weights
+        void loadWeights(std::string file);
+
         // Visualise Neural Network Topology
         void prettyPrintNetwork();
 
@@ -68,6 +71,8 @@ class NeuralNetwork
         double getTotalError() {return this->error;}
         std::vector<double> getErrors() {return this->errors;}
         std::vector<double> getActivatedVals(int index) {return this->layers.at(index)->getActivatedVals();}
+        std::vector<double> getOutput() {return this->layers.at(this->topologySize - 1)->getActivatedVals();}
+        std::vector<Matrix *> getWeightMatrices() {return this->weightMatrices;}
     private:
         int topologySize;
         int hiddenActivationType = RELU;
