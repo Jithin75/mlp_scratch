@@ -46,6 +46,11 @@ bool validateCSV(const std::vector<std::vector<double>>& data) {
     return true;
 }
 
+bool fileExists(const std::string& filePath) {
+    std::ifstream file(filePath);
+    return file.good();
+}
+
 int main(int argc, char **argv) {
     if (argc != 2) {
         std::cerr << "Syntax: ./train [configFile]" << std::endl; 
@@ -67,14 +72,100 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    std::vector<int> topology = config["topology"];
-    double learningRate = config["learningRate"];
-    double momentum = config["momentum"];
-    double bias = config["bias"];
-    std::string trainingFile = config["trainingData"];
-    std::string labelsFile = config["labelData"];
-    std::string weightsFile = config["weightsFile"];
-    int epoch = config["epoch"];
+    // Error checks and setting default values
+    if (!config.contains("topology")) {
+        std::cerr << "Error: Topology not provided in the config file." << std::endl;
+        return 1;
+    }
+    std::vector<int> topology;
+    try {
+        topology = config.at("topology").get<std::vector<int>>();
+    } catch (json::type_error& e) {
+        std::cerr << "Error: Topology must be an array of integers. " << e.what() << std::endl;
+        return 1;
+    }
+
+    double learningRate = 0.05;
+    try {
+        if (config.contains("learningRate")) {
+            learningRate = config.at("learningRate").get<double>();
+        }
+    } catch (json::type_error& e) {
+        std::cerr << "Error: Learning rate must be a double. " << e.what() << std::endl;
+        return 1;
+    }
+
+    double momentum = 1.0;
+    try {
+        if (config.contains("momentum")) {
+            momentum = config.at("momentum").get<double>();
+        }
+    } catch (json::type_error& e) {
+        std::cerr << "Error: Momentum must be a double. " << e.what() << std::endl;
+        return 1;
+    }
+
+    double bias = 1.0;
+    try {
+        if (config.contains("bias")) {
+            bias = config.at("bias").get<double>();
+        }
+    } catch (json::type_error& e) {
+        std::cerr << "Error: Bias must be a double. " << e.what() << std::endl;
+        return 1;
+    }
+
+    std::string trainingFile = config.value("trainingData", "");
+    std::string labelsFile = config.value("labelData", "");
+    std::string weightsFile = config.value("weightsFile", "./mlp_scratch/weights/weights.json");
+
+    int epoch = 100;
+    try {
+        if (config.contains("epoch")) {
+            epoch = config.at("epoch").get<int>();
+        }
+    } catch (json::type_error& e) {
+        std::cerr << "Error: Epoch must be an integer. " << e.what() << std::endl;
+        return 1;
+    }
+
+    // Validate required fields
+    if (trainingFile.empty()) {
+        std::cerr << "Error: Training data file not provided in the config file." << std::endl;
+        return 1;
+    }
+    if (labelsFile.empty()) {
+        std::cerr << "Error: Label data file not provided in the config file." << std::endl;
+        return 1;
+    }
+    if (topology.size() < 2) {
+        std::cerr << "Error: Invalid topology. It must contain at least two layers (input and output layers)." << std::endl;
+        return 1;
+    }
+
+    // Validate file existence
+    if (!fileExists(trainingFile)) {
+        std::cerr << "Error: Training data file not found: " << trainingFile << std::endl;
+        return 1;
+    }
+    if (!fileExists(labelsFile)) {
+        std::cerr << "Error: Label data file not found: " << labelsFile << std::endl;
+        return 1;
+    }
+
+    // Validate learning rate, momentum, and bias
+    if (learningRate <= 0) {
+        std::cerr << "Error: Learning rate must be a positive number." << std::endl;
+        return 1;
+    }
+    if (momentum < 0) {
+        std::cerr << "Error: Momentum must be a non-negative number." << std::endl;
+        return 1;
+    }
+    if (bias < 0) {
+        std::cerr << "Error: Bias must be a non-negative number." << std::endl;
+        return 1;
+    }
 
     std::cout << "Network Topology: ";
     for (const auto &v : topology) {

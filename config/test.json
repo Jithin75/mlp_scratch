@@ -1,0 +1,6 @@
+{
+    "topology": [4,3,2],
+    "testData": "/Users/jithin/Desktop/Projects/mlp_scratch/data/sample_data.csv",
+    "weightsFile": "/Users/jithin/Desktop/Projects/mlp_scratch/weights/weights.json",
+    "resultsFile": "/Users/jithin/Desktop/Projects/mlp_scratch/results/results.csv"
+}

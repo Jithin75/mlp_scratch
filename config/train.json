@@ -1,9 +1,9 @@
 {
-    "topology": [3,2,2],
+    "topology": [4,3,2],
     "learningRate": 0.05,
     "momentum": 1,
     "bias": 1,
-    "epoch": 1000,
+    "epoch": 3000,
     "trainingData": "/Users/jithin/Desktop/Projects/mlp_scratch/data/sample_data.csv",
     "labelData": "/Users/jithin/Desktop/Projects/mlp_scratch/data/sample_label.csv",
     "weightsFile": "/Users/jithin/Desktop/Projects/mlp_scratch/weights/weights.json"
