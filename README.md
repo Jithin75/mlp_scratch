@@ -134,6 +134,10 @@ results.csv:
 0.0986935,0.90011
 ```
 
+### Upcoming Updates
+- Split training data into validation and train sets
+- Obtain Accuracy scores for metric-based model evaluation
+
 ### Acknowledgements
 This project uses the [JSON for Modern C++ library](https://github.com/nlohmann/json/tree/develop) by Niels Lohmann.
 
