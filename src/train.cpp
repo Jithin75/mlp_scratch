@@ -51,6 +51,21 @@ bool fileExists(const std::string& filePath) {
     return file.good();
 }
 
+void displayProgressBar(size_t current, size_t total, size_t barWidth = 70) {
+    if (current > total) return; // Avoid overflow
+    float progress = (float)current / total;
+    size_t pos = static_cast<size_t>(barWidth * progress);
+
+    std::cout << "[";
+    for (size_t i = 0; i < barWidth; ++i) {
+        if (i < pos) std::cout << "=";
+        else if (i == pos) std::cout << ">";
+        else std::cout << " ";
+    }
+    std::cout << "] " << int(progress * 100.0) << " %\r";
+    std::cout.flush();
+}
+
 int main(int argc, char **argv) {
     if (argc != 2) {
         std::cerr << "Syntax: ./train [configFile]" << std::endl; 
@@ -204,6 +219,7 @@ int main(int argc, char **argv) {
             std::vector<double> target = labelData.at(i);
             nn.train(input, target);
         }
+        displayProgressBar(counter + 1, epoch);
         std::cout << "Epoch " << counter + 1 << " error: " << nn.getTotalError() << std::endl;
     }
 
