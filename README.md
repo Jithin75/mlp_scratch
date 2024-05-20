@@ -141,4 +141,4 @@ results.csv:
 This project uses the [JSON for Modern C++ library](https://github.com/nlohmann/json/tree/develop) by Niels Lohmann.
 
 ### Contact
-This README includes code excerpts, instructions on how to run the code, and all necessary information based on the provided conversation. Adjust the paths in the JSON files and CSV examples as needed. If there are additional details you'd like to include or modify, please let me know!
+This README includes code excerpts, instructions on how to run the code, and all necessary information based on the provided conversation. Adjust the paths in the JSON files and CSV examples as needed. If there are additional details you'd like to include or modify, please let me know at jithuk02@gmail.com!
