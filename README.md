@@ -47,7 +47,6 @@ An example defintion of the json file used by `./train`:
     "trainingData": "/path/to/sample_data.csv",
     "labelData": "/path/to/sample_label.csv",
     "weightsFile": "/path/to/weights.json",
-    "resultsFile": "/path/to/results.csv"
 }
 ```
 
