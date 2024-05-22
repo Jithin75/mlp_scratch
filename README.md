@@ -61,7 +61,7 @@ Each entry in the JSON file is used by the train executable to configure and tra
 - labelData (Required): This specifies the path to the CSV file containing the labels for the training data. Each row in the CSV file should correspond to the label for the corresponding training example.
 - weightsFile (Optional): This specifies the path to the file where the trained weights will be saved. The default value is ./weights.json. If not provided in the JSON file, the default value will be used.
 
-An example defintion of the json file used by `./train`:
+An example defintion of the json file used by `./test`:
 
 ```json
 {
